@@ -1,88 +1,61 @@
-//var _androidUrl = window.location.origin + "/NVSI/LEAP/Download/default/{areaid}/2020/2/8/99f1f271a0c440c2b7031ece9ca9d377.apk";
-var _androidUrl = "http://zwfw.lg.gov.cn/LGFK/LEAP/Download/default/2020/2/20/19db9498e2a64d77b565e1e3f87bc31b/_v3_/%E7%96%AB%E6%83%85%E9%98%B2%E6%8E%A7_andriod_%E6%AD%A3%E5%BC%8F1.0.0.apk";
-var _qrcodeurl = "./img/qrcode0220.png";
-var _iosPalistUrl = "https://code.aliyun.com/longrise_mobile/yqfkplist/raw/master/yqfk_lg.plist";
+//android的下载地址，页面加载时自动查询
+var _androidDownUrl = "";
+//安卓查询地址
+var _androidurl = "http://113.57.175.210:5880/LPOM/";
+//版本查询接口
+var _apiname = "restservices/StudioRest/studiov2_app_rest_searchLastVersion/query";
+//下载二维码，当前H5的地址生成的
+var _qrcodeurl = "./img/qrcode0211.png";
+//苹果的Plist文件地址
+var _iosPalistUrl = "https://code.aliyun.com/longrise/OAProject/raw/master/tplist";
+//android升级资源名称
+var arg_name = "IOSPMPhone";
 
 var version = "1.0.0";
-var updateTime = "2020-02-20";
+var updateTime = "2020-02-08";
 
 var type = null;
 
 $(function () {
    deviceCheck();
-   $("#Androidversion").text(version);
-   /*$("#iPhoneversion").text(version);*/
+   $("#Androidversion").text(version + "（new）");
+   $("#iPhoneversion").text(version);
    $("#appUpdateTime").text(updateTime);
    $("#appDownloadCode").attr("src", _qrcodeurl);
 });
 
 (function(){
 	var path=location.pathname.split("/")[1];
-	
+	  
 	   var contexts = window.location.pathname.split("/");
 	   var _context = "DAQ";
 	   if (contexts.length > 0) 
 	   {
 		   _context = contexts[1];
-	   }
-	   var urlbase = window.location.origin + "/" + _context;
-	   
+	   }	   
 	   var wl_search = window.location.search
-	   var arg_name = "Android_APK";
 	   if (wl_search && wl_search.split("=") && wl_search.split("=").length > 1) 
 	   {
 		   arg_name = wl_search.split("=")[1];
 	   }
 	   
-	   
-	   var bean = {"bean": {
-		   "codevalue" : "App_download"
-       }}
-	   
-	   /*app下载地址方法*/
+	  
+	   //查询Android的最新版本地址
 	   $.ajax({
 	       type: "POST",
-	       contentType: "application/json",
-	       dataType: "json",
-	       url: urlbase + "/restservices/nsyqv6/app_getDownloadadds/query",
-	       data: JSON.stringify(bean) ,
-	       async: false,
-	       success: function (data) {
-	    	   if(data && data.data){
-	    		   var _data = data.data
-	    		   for (var k = 0; k < _data.length; k++) 
-	    		   {
-	    			   if ("androidUrl" == _data[k].codeid) {
-	    				   _androidUrl = _data[k].codevalue && _data[k].codevalue.length > 2 ? _data[k].codevalue : _androidUrl
-	    			   }
-	    			   /*if ("qrcodeurl" == _data[k].codeid) {
-	    				   _qrcodeurl = _data[k].codevalue && _data[k].codevalue.length > 2 ? _data[k].codevalue : _qrcodeurl
-	    			   }
-	    			   if ("iosPalistUrl" == _data[k].codeid) {
-	    				   _iosPalistUrl = _data[k].codevalue && _data[k].codevalue.length > 2 ? _data[k].codevalue : _iosPalistUrl
-	    			   }*/
-	    			   if ("argname" == _data[k].codeid) {
-	    				   arg_name = _data[k].codevalue && _data[k].codevalue.length > 2 ? _data[k].codevalue : arg_name
-	    			   }
-	    		   }
-	    	   }
-	       }
-	   });
-	   /*app下载地址版本更新*/
-	   $.ajax({
-	       type: "POST",
-	       url: urlbase + "/restservices/nsyqv6/studiov2_app_searchLastVersion/query",
+	       url: _androidurl + _apiname,
 	       data:{"name": arg_name},
 	       async: false,
 	       success: function (data) {
 	    	   if(data){
 	    		   var resultss=data ?  JSON.parse(data) : {};
 	    		   version = resultss.appversion ? resultss.appversion : "v1.0.0";
-	    		   updateTime = resultss.updatetime && resultss.updatetime.length > 10 ? resultss.updatetime.substring(0,10) : "2020-02-20";
-	    	       	_androidUrl = resultss.downloadurl ? urlbase + "/" + resultss.downloadurl : _androidUrl;
+	    		   updateTime = resultss.updatetime && resultss.updatetime.length > 10 ? resultss.updatetime.substring(0,10) : "2020-02-12";
+	    	       	_androidUrl = resultss.downloadurl ? _androidurl + "/" + resultss.downloadurl : _androidUrl;
 	    	   }
 	       }
 	   });
+	   
 	   
 })()
 
@@ -141,22 +114,12 @@ function deviceCheck() {
     }
 }
 
-/*// ios网页端下载
-function iPhone() {
-	iphonebox(0);
-	window.location.href = "itms-services://?action=download-manifest&url=" + _iosPalistUrl;
-}*/
-
-// Android网页端下载
-function Android() {
-    window.location.href = _androidUrl;
-}
-
-// 手机端下载
+//开始下载
 function mobileAppDownload() {
+	//隐藏通用提示框
+	noticebox(0)
     if (type === 1) {
-        // window.location.href = "itms-services://?action=download-manifest&url=" + _iosPalistUrl;
-    	iphonebox(1)
+		window.location.href = "itms-services://?action=download-manifest&url=" + _iosPalistUrl;
         $("#mobiledown").hide();
         $("#loading").show();
         setTimeout(function () {
@@ -166,10 +129,21 @@ function mobileAppDownload() {
     } else if (type === 3) {
         alert("请在浏览器中打开");
     } else {
-        window.location.href = _androidUrl;
+		window.location.href = _androidUrl;
     }
 }
 
+//点击下载按钮提示框
+function noticebox(arg)
+{
+	if (arg == 0) {
+	    $("#noticebox").hide();
+	} else {
+	    $("#noticebox").show();
+	}
+}
+
+//不信任处理方案提示框
 function iphonebox(arg) {
     if (arg == 0) {
         $("#iphonebox").hide();

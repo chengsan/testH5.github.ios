@@ -8,44 +8,48 @@
 </head>
 <body>
 <div class="container">
-    <div class="main" style="overflow:auto;">
+    <div class="main">
         <div class="header t_c">
-            <img class="header-logo" src="./img/header-logo1.png">
+            <img class="header-logo" src="./img/header-logo.png">
         </div>
 
-        <div class="view" style="height:auto!important;">
+        <div class="view">
             <table class="plr_20 ht_100p">
                 <tr>
                     <td width="45%" valign="top" align="center" style="height: 100%;">
-                        <img class="phone" src="./img/phonex5.png">
+                        <!-- <img class="phone" src="http://113.57.175.210:18380/LEPS/LEAP/AppDownload/img/phone.png"> -->
+                        <img class="phone" src="./img/phonex2.png">
                     </td>
                     <td width="55%" valign="top">
                         <div class="title-img" style="margin-left:-6px;margin-bottom:-2px">
-                            <img class="logo" src="./img/logo1.png" style="position: relative;">
+                            <img class="logo" src="./img/logo.png" style="position: relative;">
                         </div>
-                        <div class="title" style="font-size:20px; color: #333;font-weight: bold;">
-                           	永兴元智慧OA
+                        <div class="title" style="font-size:24px; color: #333;font-weight: bold;margin-bottom:4px;">
+                            居家安
+                            <!--                            <img src="http://download.yxybb.com/YXYBB/APP/images/title.png">-->
+                            <!--                            <span>官</span>-->
                         </div>
                         <ul class="info">
                             <li>安卓版本：<em id="Androidversion"></em></li>
                             <li>苹果版本：<em id="iPhoneversion"></em></li>
                             <li>更新时间：<em id="appUpdateTime"></em></li>
-                            <li>支持系统：Android4.4.x以上</li>
+                            <li>支持系统：Android4.4.x以上，iOS9.0以上</li>
                         </ul>
 
                         <div  class="row-loading t_c">
+                            <a id="mobiledown" class="button" href="javascript:;" onclick="noticebox(1)">下载手机客户端</a>
                             <div id='iostips' class="button1">正在安装，请按Home键在桌面查看!</div>
                             <img id='loading' class="button1" src="http://download.yxybb.com/YXYBB/APP/images/loading.gif">
                         </div>
 
-                        <img id="appDownloadCode" class="left-code code info fl" style="position: relative;width:120px;height: 120px;">
-                        <div class="right-button fl" style="width:60%">
+                        <img id="appDownloadCode" src="img/qrcode.png" class="left-code code info fl" style="position: relative;width:120px;height: 120px;">
+                        <div class="right-button fl" style="width:52%">
                             <a class="button button_d button_iphone" href="javascript:;" onclick="iPhone()">
                                 <img src="./img/apple.png">
                                 <span class="btn-line"></span>
                                 <div class="btn-title">
                                     <b class="c-AFF">iPhone版下载</b>
-                                    <i class="c-AFF">适用于iOS8.0以上版本</i>
+                                    <i class="c-AFF">适用于iOS9.0以上版本</i>
                                 </div>    
                             </a>
                             <a class="button button_d button_android" href="javascript:;" onclick="Android()">
@@ -63,16 +67,13 @@
         </div>
 
         <div class="footer">
-            <div style="text-align:center;margin:20px 0;">
-                <a id="mobiledown" class="button" style="margin-bottom:0;" href="javascript:;" onclick="mobileAppDownload()">下载手机客户端</a>
-            </div>
             <div class="row">
                 <div class="col t_c v_b" style="position: relative;">
                     <!-- <p class="download_tip" style="font-size: 14px; color: #000; position: absolute; top: -22px; right: 50%; margin-right: -40px;">扫二维码安装</p> -->
 
-                    <div id="iphoneboxtips" style="margin-bottom: 10px;">
+                    <div id="iphoneboxtips" style="margin-bottom: 20px;">
                         <img src="./img/finger.png" style="width:18px;margin-bottom: 5px;margin-right:4px;vertical-align:middle;">
-                        <a class="iphonebox" onclick="iphonebox(1)">点击查看开发者的解决办法</a>
+                        <a class="iphonebox" onclick="iphonebox(1)">点击查看“未受信任的企业级开发中”的解决办法</a>
                     </div>
                     
                     <!-- <p class="copyRight">保宝官网：new.yxybb.com</p> -->
@@ -87,25 +88,40 @@
     </div>
 </div>
 
+<!-- 通用提示弹框 -->
+<div class="sl" style="display:none" id="noticebox">
+    <div class="sl_inner">
+        <!-- <p class="sl_inner_tit">“未受信任的企业级开发者”的解决办法<a href="javascript:;" onclick="iphonebox(0)"></a></p> -->
+        <div class="sl_steps">
+			<p class="sl_steps_title">温馨提示</p>
+            <p class="sl_steps_txt">1、如果界面加载存在问题，请清空浏览器缓存重新刷新加载。 </p>
+            <p class="sl_steps_txt">2、因苹果公司的政策原因，如果应用安装后打开提示"未受信任的企业级开发者"，请参照当前页面底部的指引链接处理。</p>
+        
+		<div style="margin: 36px; text-align: center"><a  class="button" href="javascript:;" onclick=mobileAppDownload()>下载</a></div>     
+        </div>
+       
+    </div>
+</div>
+
 <!-- 弹框 -->
 <div class="sl" style="display:none" id="iphonebox">
     <div class="sl_inner">
         <!-- <p class="sl_inner_tit">“未受信任的企业级开发者”的解决办法<a href="javascript:;" onclick="iphonebox(0)"></a></p> -->
         <div class="sl_steps">
             <p class="sl_steps_txt">因苹果公司的政策原因，在iOS系统中首次安装企业版应用时会出现"未受信任的企业级开发者"提示</p>
-            <img class="sl_img" src="http://download.yxybb.com/YXYBB/APP/images/web/bg-1.png" style="margin: 0" alt="">
+            <img class="sl_img" src="img/bg-1.png" style="margin: 0" alt="">
             <p class="sl_steps_tit">解决办法：（以iOS11为例）</p>
             <p class="sl_steps_txt">1.在手机中打开<span>【设置】</span> 功能，选择<span>【通用】</span></p>
-            <img class="sl_img" src="http://download.yxybb.com/YXYBB/APP/images/web/bg-2.png" alt="">
+            <img class="sl_img" src="img/bg-2.png" alt="">
             <p class="sl_steps_txt">2.在<span>【通用】</span>中，选择<span>【描述文件与设备管理】</span>功能</p>
-            <img class="sl_img" src="http://download.yxybb.com/YXYBB/APP/images/web/bg-3.png" alt="">
+            <img class="sl_img" src="img/bg-3.png" alt="">
             <p class="sl_steps_txt">3.在<span>【描述文件与设备管理】</span>中，找到企业级应用分类，选择要安装的企业应用的文件名称，如：Longrise Science&Technology Co.,Ltd</p>
-            <img class="sl_img" src="http://download.yxybb.com/YXYBB/APP/images/web/bg-4.png" alt="">
+            <img class="sl_img" src="img/bg-4.png" alt="">
             <p class="sl_steps_txt">4.在企业签名页面，确认企业签名中的公司名称与应用名称后，点击信任“<span>企业签名公司名称</span>”</p>
-            <img class="sl_img" src="http://download.yxybb.com/YXYBB/APP/images/web/bg-5.png" alt="">
-            <img class="sl_img" src="http://download.yxybb.com/YXYBB/APP/images/web/bg-6.png" style="margin-top: 0" alt="">
+            <img class="sl_img" src="img/bg-5.png" alt="">
+            <img class="sl_img" src="img/bg-6.png" style="margin-top: 0" alt="">
             <p class="sl_steps_txt">5.回到桌面，可正常使用</p>
-        <div style="margin: 36px; text-align: center"><a  class="button" href="javascript:;" onclick="iPhone()">下载</a></div>     
+        <div style="margin: 36px; text-align: center"><a  class="button" href="javascript:;" onclick="iphonebox(0)">我知道了</a></div>     
         </div>
        
     </div>
