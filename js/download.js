@@ -2,7 +2,7 @@
 //1、安卓查询地址
 var _androidurl = "https://pm.longrise.cn/LPOM/";
 //2、版本查询接口
-var _apiname = "restservices/StudioRest/studiov2_app_rest_searchLastVersion/query";
+var _apiname = "restservices/StudioRest/studiov2_app_rest_searchLastVersion/query/";
 //3、苹果的Plist文件地址（移动开发提供）
 var _iosPalistUrl = "https://code.aliyun.com/longrise/OAProject/raw/master/plist";
 //4、android升级资源名称（移动开发提供）
