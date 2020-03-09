@@ -1,16 +1,17 @@
+//步骤说明：
+//1、安卓查询地址
+var _androidurl = "https://pm.longrise.cn/LPOM/";
+//2、版本查询接口
+var _apiname = "restservices/StudioRest/studiov2_app_rest_searchLastVersion/query";
+//3、苹果的Plist文件地址（移动开发提供）
+var _iosPalistUrl = "https://code.aliyun.com/longrise/OAProject/raw/master/plist";
+//4、android升级资源名称（移动开发提供）
+var arg_name = "AndroidPMPhone_Version";
+//5、将该H5方法对应服务器后，将index.html的完整地址到草料二维码网站重新生成二维码并替换qrcode.png
+//6、替换界面中的logo、介绍页面替换成自己项目的，APP的名称改成自己项目的
+
 //android的下载地址，页面加载时自动查询
 var _androidDownUrl = "";
-//安卓查询地址
-var _androidurl = "http://113.57.175.210:5880/LPOM/";
-//版本查询接口
-var _apiname = "restservices/StudioRest/studiov2_app_rest_searchLastVersion/query";
-//下载二维码，当前H5的地址生成的
-var _qrcodeurl = "./img/qrcode0211.png";
-//苹果的Plist文件地址
-var _iosPalistUrl = "https://code.aliyun.com/longrise/OAProject/raw/master/tplist";
-//android升级资源名称
-var arg_name = "IOSPMPhone";
-
 var version = "1.0.0";
 var updateTime = "2020-02-08";
 
@@ -21,7 +22,6 @@ $(function () {
    $("#Androidversion").text(version + "（new）");
    $("#iPhoneversion").text(version);
    $("#appUpdateTime").text(updateTime);
-   $("#appDownloadCode").attr("src", _qrcodeurl);
 });
 
 (function(){
@@ -51,7 +51,7 @@ $(function () {
 	    		   var resultss=data ?  JSON.parse(data) : {};
 	    		   version = resultss.appversion ? resultss.appversion : "v1.0.0";
 	    		   updateTime = resultss.updatetime && resultss.updatetime.length > 10 ? resultss.updatetime.substring(0,10) : "2020-02-12";
-	    	       	_androidUrl = resultss.downloadurl ? _androidurl + "/" + resultss.downloadurl : _androidUrl;
+	    	       	_androidDownUrl = resultss.downloadurl ? _androidurl + "/" + resultss.downloadurl : _androidUrl;
 	    	   }
 	       }
 	   });
@@ -129,7 +129,7 @@ function mobileAppDownload() {
     } else if (type === 3) {
         alert("请在浏览器中打开");
     } else {
-		window.location.href = _androidUrl;
+		window.location.href = _androidDownUrl;
     }
 }
 
